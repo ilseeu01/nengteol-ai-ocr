@@ -1,7 +1,7 @@
 import userRouter from "./router.user.js";
 import foodRouter from "./router.food.js";
-import reviewRouter from './router.review.js';
-import express from 'express';
+import reviewRouter from "./router.review.js";
+import express from "express";
 import cartRouter from "./router.cart.js";
 import tRouter from "./router.recipt.js";
 import eRouter from "./router.recipe.js";
@@ -9,12 +9,10 @@ import Pre from "../model/model.pre.js";
 
 const router = express.Router();
 
-router.use('/foods', foodRouter);
-router.use('/users', userRouter);
-router.use('/reviews', reviewRouter);
-router.use('/carts', cartRouter);
-router.use('/receipt', tRouter)
-router.use('/recipe', eRouter);
+router.use("/foods", foodRouter);
+router.use("/users", userRouter);
+router.use("/reviews", reviewRouter);
+router.use("/carts", cartRouter);
 
 router.post("/generate-recipe", async (req, res) => {
   const { userIndex = 1 } = req.body;

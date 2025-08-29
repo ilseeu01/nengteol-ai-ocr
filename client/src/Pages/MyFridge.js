@@ -53,11 +53,12 @@ export default function MyFridge() {
     useEffect(() => {
         (async () => {
             try {
-                const res = await axios.get("http://localhost:5000/api/foods/0");
+                const res = await axios.get("http://localhost:5000/api/foods/1");
                 setFoods(Array.isArray(res.data?.data) ? res.data.data : []);
             } catch (err) {
                 console.error("데이터 가져오기 실패:", err);
                 setFoods([]);
+                console.log(foods);
             } finally {
                 setLoading(false);
             }
@@ -100,11 +101,37 @@ export default function MyFridge() {
         .filter((f) => (filterKey ? normalizeCategory(f.category) === filterKey : true))
         .map((f) => ({ ...f, category: normalizeCategory(f.category) }));
 
-    const handleUpdate = async (food) => {
+    // const handleUpdate = async (food) => {
+    //     // try {
+    //     //     await axios.delete("http://localhost:5000/api/foods", {
+    //     //         data: {
+    //     //             user_id: 1,
+    //     //             name: food.name,
+    //     //             count: 1, // 1개 줄이기
+    //     //         },
+    //     //     });
+    //     //     // 상태 업데이트: 수량 -1, 0이면 제거
+    //     //     setFoods(
+    //     //         (prev) =>
+    //     //             prev
+    //     //                 .map((f) => (f._id === food._id ? { ...f, quantity: f.quantity - 1 } : f))
+    //     //                 .filter((f) => f.quantity > 0) // 수량 0은 리스트에서 제거
+    //     //     );
+    //     // } catch (err) {
+    //     //     console.error("수정 실패:", err);
+    //     // }
+    //     alert("추가 되었습니다.");
+    // };
+    const handleUpdate = (food) => {
+        // 상태 업데이트: 해당 food의 quantity +1
+        setFoods((prev) => prev.map((f) => (f._id === food._id ? { ...f, quantity: f.quantity + 1 } : f)));
+    };
+
+    const handleinc = async (food) => {
         try {
-            await axios.delete("http://localhost:5000/api/foods", {
+            await axios.post("http://localhost:5000/api/foods", {
                 data: {
-                    user_id: 0,
+                    user_id: 1,
                     name: food.name,
                     count: 1, // 1개 줄이기
                 },
@@ -143,13 +170,13 @@ export default function MyFridge() {
             {/* Header */}
             <div className="page-header">
                 <div className="flex justify-between items-start">
-                    <div className="flex gap-3 ">
+                    <div className="flex gap-3">
                         <div className="page-icon">
                             <Refrigerator className="w-6 h-6 text-white" />
                         </div>
                         <div>
                             <h1 className="text-xl font-bold text-secondary">냉장고</h1>
-                            <p className="text-secondary text-xs">보유 식재료 {foods.length}개</p>
+                            <p className="text-secondary text-md">재료 {foods.length}개</p>
                         </div>
                     </div>
 
@@ -217,8 +244,8 @@ export default function MyFridge() {
                         <FoodItemCard
                             key={food._id ?? idx}
                             item={food}
-                            onUse={handleUpdate} // ✅ 수정(= 수량 감소 API)
-                            onDelete={console.log("삭제")} // ✅ 삭제(완전 삭제)
+                            onUse={handleUpdate} // ✅ 추가
+                            onDelete={handleinc} // ✅ 사용
                         />
                     ))}
                     {filteredFoods.length === 0 && (

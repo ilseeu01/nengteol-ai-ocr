@@ -48,6 +48,7 @@ const DiaryList = ({ data }) => {
         copyList.sort(compare);
         setSortedData(copyList);
     }, [reviews, sortType]);
+
     useEffect(() => {
         (async () => {
             try {
@@ -57,7 +58,7 @@ const DiaryList = ({ data }) => {
                 // 최소 매핑: DiaryItem이 기대하는 키로만 맞춤
                 const normalized = rows.map((r) => ({
                     id: r._id ?? r.id,
-                    emotionId: Number(r.score),
+                    emotionId: r.score,
                     content: r.feedback ?? "",
                     date: r.date ?? r.created_at, // "YYYY-MM-DD" or ISO 지원
                 }));
@@ -71,15 +72,6 @@ const DiaryList = ({ data }) => {
     return (
         <div className="DiaryList">
             <div className="menu_wrapper">
-                <div className="left_col">
-                    <select value={sortType} onChange={onChangeSortType}>
-                        {sortOptionList.map((it, idx) => (
-                            <option key={idx} value={it.value}>
-                                {it.name}
-                            </option>
-                        ))}
-                    </select>
-                </div>
                 <div className="right_col">
                     <Button type={"positive"} text={"새 일기 쓰기"} onClick={onClickNew} />
                 </div>

@@ -1,45 +1,69 @@
 import { useNavigate, useParams } from "react-router-dom";
-import useDiary from "../hooks/useDiary";
 import Button from "../components/DiaryComponents/Button";
 import Header from "../components/DiaryComponents/Header";
-import { getFormattedDate, setPageTitle } from "../util";
 import Viewer from "../components/DiaryComponents/Viewer";
-import { useEffect } from "react";
+import { getFormattedDate, setPageTitle } from "../util";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-const Diary = () => {
+const DDiary = () => {
     const { id } = useParams();
-    const data = useDiary(id);
     const navigate = useNavigate();
 
-    const goBack = () => {
-        navigate(-1);
-    };
+    const [diary, setDiary] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [loadError, setLoadError] = useState(null);
 
-    const goEdit = () => {
-        navigate(`/edit/${id}`);
+    const mapReview = (row) => {
+        if (!row) return null;
+        return {
+            id: row._id ?? id,
+            date: row.createdAt ?? row.updatedAt ?? Date.now(),
+            emotionId: row.score ?? 3, // Viewer에서 score를 감정처럼 쓰도록 매핑
+            content: row.feedback ?? "",
+            title: row.recipe_name ?? "제목 없음",
+        };
     };
 
     useEffect(() => {
-        setPageTitle(`${id}번 일기`);
-    });
+        let ignore = false;
+        setLoading(true);
+        setLoadError(null);
 
-    if (!data) {
-        return <div>일기를 불러오고 있습니다...</div>;
-    } else {
-        const { date, emotionId, content } = data;
-        const title = `${getFormattedDate(new Date(Number(date)))} 기록`;
+        (async () => {
+            try {
+                const res = await axios.get(`http://localhost:5000/api/reviews/${encodeURIComponent(id)}`);
+                console.log("서버 응답:", res.data.data);
+                const raw = res.data?.data;
+                const mapped = mapReview(raw);
+                if (!ignore) setDiary(mapped);
+            } catch (e) {
+                if (!ignore) setLoadError("일기를 불러오지 못했습니다.");
+                console.error(e);
+            } finally {
+                if (!ignore) setLoading(false);
+            }
+        })();
 
-        return (
-            <div>
-                <Header
-                    title={title}
-                    leftChild={<Button text={"< 뒤로가기"} onClick={goBack} />}
-                    rightChild={<Button text={"수정하기"} onClick={goEdit} />}
-                />
-                <Viewer content={content} emotionId={emotionId} />
-            </div>
-        );
-    }
+        return () => {
+            ignore = true;
+        };
+    }, [id]);
+
+    const goBack = () => navigate(-1);
+
+    if (loading) return <div>일기를 불러오고 있습니다...</div>;
+    if (loadError) return <div className="text-red-600">{loadError}</div>;
+    if (!diary) return <div>해당 ID의 일기를 찾을 수 없습니다.</div>;
+
+    const titleText = `${getFormattedDate(new Date(diary.date))} 기록`;
+
+    return (
+        <div>
+            <Header title={diary.title || titleText} leftChild={<Button text={"<"} onClick={goBack} />} />
+            <Viewer content={diary.content} emotionId={diary.emotionId} />
+        </div>
+    );
 };
 
-export default Diary;
+export default DDiary;
