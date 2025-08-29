@@ -13,6 +13,8 @@ router.use("/foods", foodRouter);
 router.use("/users", userRouter);
 router.use("/reviews", reviewRouter);
 router.use("/carts", cartRouter);
+router.use("/recipt", tRouter);
+router.use("/recipe", eRouter);
 
 router.post("/generate-recipe", async (req, res) => {
   const { userIndex = 1 } = req.body;
