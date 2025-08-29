@@ -17,7 +17,7 @@ const Editor = ({ initData, onSubmit }) => {
         setScore(scoreFromOrder); // 첫번째=1, 두번째=2 ... 다섯번째=5
     };
     const payload = {
-        user_id: 0,
+        user_id: 1,
         recipe_name: name,
         feedback: feedback,
         score: score,
@@ -27,7 +27,7 @@ const Editor = ({ initData, onSubmit }) => {
         try {
             const res = await axios.post("http://localhost:5000/api/reviews", payload);
             console.log("등록 성공:", res.data);
-            // navigate(-1);
+            navigate(-1);
             console.log(payload);
         } catch (err) {
             console.error(err);

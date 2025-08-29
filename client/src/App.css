@@ -704,7 +704,8 @@ body {
 .page-icon {
     width: 64px;
     height: 64px;
-    background: linear-gradient(135deg, #00d4aa 0%, #00a3ff 100%);
+    background-color: #00bfe0;
+
     border-radius: var(--radius-2xl);
     display: flex;
     align-items: center;
@@ -885,7 +886,6 @@ body {
     padding: var(--spacing-md);
     border-radius: var(--radius-xl);
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.6);
     background: transparent;
     border: none;
     cursor: pointer;
@@ -895,7 +895,6 @@ body {
 
 .tab-trigger.active {
     background: rgba(255, 255, 255, 0.15);
-    color: #ffffff;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
@@ -1086,7 +1085,7 @@ body {
     bottom: 0;
     border-radius: inherit;
     padding: 1px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.45));
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask-composite: exclude;
     pointer-events: none;
