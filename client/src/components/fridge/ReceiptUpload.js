@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Upload, X } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const ReceiptUpload = ({ onUploadComplete }) => {
     const [uploading, setUploading] = useState(false);
     const [dragOver, setDragOver] = useState(false);
+    const navigate = useNavigate();
 
     const handleFileUpload = async (files) => {
         if (!files.length) return;
@@ -42,6 +44,8 @@ const ReceiptUpload = ({ onUploadComplete }) => {
                         console.error("요청 실패:", error);
                     }
                 }
+
+		window.location.reload();
             } else {
                 console.error('업로드 실패:', result.error);
                 alert('영수증 분석에 실패했습니다: ' + result.error);
