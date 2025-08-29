@@ -11,7 +11,7 @@ const FoodItemCard = ({ item, onUse, onDelete }) => {
                 const confirmDelete = window.confirm(`${item.name}은 마지막 1개 남아있습니다. 정말 사용하시겠습니까?`);
                 if (!confirmDelete) return; // 취소 시 종료
             }
-            await axios.delete("http://localhost:5000/api/foods", {
+            await axios.delete("http://223.130.140.174:5000/api/foods", {
                 data: { name: item.name, user_id: 1 },
             });
             alert(`${item.name}이(가) 삭제 완료 되었습니다.`);

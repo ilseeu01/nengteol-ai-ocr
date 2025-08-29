@@ -32,7 +32,7 @@ const DDiary = () => {
 
         (async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/api/reviews/${encodeURIComponent(id)}`);
+                const res = await axios.get(`http://223.130.140.174:5000/api/reviews/${encodeURIComponent(id)}`);
                 console.log("서버 응답:", res.data.data);
                 const raw = res.data?.data;
                 const mapped = mapReview(raw);

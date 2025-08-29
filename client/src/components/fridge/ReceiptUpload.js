@@ -16,7 +16,7 @@ const ReceiptUpload = ({ onUploadComplete }) => {
 
             console.log("파일 업로드 시작:", files[0].name);
             
-            const response = await fetch('http://localhost:5000/api/receipt/upload', {
+            const response = await fetch('http://223.130.140.174:5000/api/receipt/upload', {
                 method: 'POST',
                 body: formData,
             });
@@ -30,7 +30,7 @@ const ReceiptUpload = ({ onUploadComplete }) => {
                 const user_id = 1;
                 for (const food of result.foodItems) {
                     try {
-                        const response = await fetch("http://localhost:5000/api/foods", {
+                        const response = await fetch("http://223.130.140.174:5000/api/foods", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ user_id, name: food.name, quantity: food.quantity, quantity: food.category }),
