@@ -33,6 +33,6 @@ app.get("/", (req, res) => {
 });
 
 // 서버 실행
-app.listen(PORT, () => {
+app.listen(PORT,HOST, () => {
   console.log(`서버 실행 중: http://${HOST}:${PORT}`);
 });

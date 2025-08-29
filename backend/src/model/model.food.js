@@ -9,7 +9,6 @@ const foodSchema = new Schema(
     },
     category: {
       type: String,
-      enum: ["고기", "해산물", "유제품", "음료", "채소", "과일"],
     },
     name: {
       type: String,
