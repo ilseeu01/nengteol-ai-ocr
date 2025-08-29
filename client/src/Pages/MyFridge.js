@@ -53,7 +53,7 @@ export default function MyFridge() {
     useEffect(() => {
         (async () => {
             try {
-                const res = await axios.get("http://localhost:5000/api/foods/1");
+                const res = await axios.get("http://223.130.140.174:5000/api/foods/1");
                 setFoods(Array.isArray(res.data?.data) ? res.data.data : []);
             } catch (err) {
                 console.error("데이터 가져오기 실패:", err);
@@ -103,7 +103,7 @@ export default function MyFridge() {
 
     // const handleUpdate = async (food) => {
     //     // try {
-    //     //     await axios.delete("http://localhost:5000/api/foods", {
+    //     //     await axios.delete("http://223.130.140.174:5000/api/foods", {
     //     //         data: {
     //     //             user_id: 1,
     //     //             name: food.name,
@@ -129,7 +129,7 @@ export default function MyFridge() {
 
     const handleinc = async (food) => {
         try {
-            await axios.post("http://localhost:5000/api/foods", {
+            await axios.post("http://223.130.140.174:5000/api/foods", {
                 data: {
                     user_id: 1,
                     name: food.name,

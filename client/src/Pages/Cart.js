@@ -24,7 +24,7 @@ export default function Cart() {
         (async () => {
             try {
                 // TODO: userId나 cartId가 있다면 0 대신 실제 값 사용
-                const res = await axios.get(`http://localhost:5000/api/carts/${1}`);
+                const res = await axios.get(`http://223.130.140.174:5000/api/carts/${1}`);
                 const rows = Array.isArray(res.data?.data) ? res.data.data : [];
                 const mapped = rows.map(mapCartRow);
                 setCartItems(mapped);
@@ -50,7 +50,7 @@ export default function Cart() {
     const totalAmount = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
     const handleDelete = async (item) => {
         try {
-            const res = await axios.delete("http://localhost:5000/api/carts", {
+            const res = await axios.delete("http://223.130.140.174:5000/api/carts", {
                 data: {
                     user_id: 1, // 현재 로그인 유저 ID (예시)
                     name: item.name, // 삭제할 상품명

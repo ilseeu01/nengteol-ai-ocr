@@ -25,7 +25,7 @@ const Editor = ({ initData, onSubmit }) => {
 
     const handleSubmit = async () => {
         try {
-            const res = await axios.post("http://localhost:5000/api/reviews", payload);
+            const res = await axios.post("http://223.130.140.174:5000/api/reviews", payload);
             console.log("등록 성공:", res.data);
             navigate(-1);
             console.log(payload);
