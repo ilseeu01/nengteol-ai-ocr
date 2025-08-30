@@ -12,14 +12,14 @@ export default function FoodUpload({ apiUrl }) {
     const [ice, setIce] = useState(false);
     const [category, setCategory] = useState("");
     const navigate = useNavigate();
-
+  
     const increase = () => setQuantity((prev) => prev + 1);
     const decrease = () => setQuantity((prev) => Math.max(0, prev - 1));
 
     const handleSubmit = async () => {
         // 간단 검증
         if (!name.trim()) {
-            alert("품목 이름을 입력해 주세요.");
+            alert("품목 이름을 입력해주세요.");
             return;
         }
         if (!category) {
@@ -40,7 +40,7 @@ export default function FoodUpload({ apiUrl }) {
                 headers: { "Content-Type": "application/json" },
             });
             console.log("등록 성공:", res.data);
-            alert("등록되었습니다!");
+	    alert("등록되었습니다!");
             navigate(-1);
             console.log(payload);
         } catch (err) {
