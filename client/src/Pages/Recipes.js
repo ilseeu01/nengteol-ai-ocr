@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { ChefHat, Clock, Users, Star } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function Recipes() {
+    const navigate = useNavigate();
     const [recipes] = useState([
         {
             id: 1,
@@ -39,13 +41,13 @@ export default function Recipes() {
         <div className="space-y-6">
             {/* Header */}
             <div className="page-header">
-                <div className="flex gap-3">
+                <div className="page-title">
                     <div className="page-icon">
                         <ChefHat className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                        <h1 className="text-xl font-bold text-secondary">레시피 추천</h1>
-                        <p className="text-secondary text-md">보유 식재료로 만들 수 있는 요리</p>
+                        <h1 className="text-3xl font-bold text-gray-800">레시피 추천</h1>
+                        <p className="text-gray-500">보유 식재료로 만들 수 있는 요리</p>
                     </div>
                 </div>
             </div>
@@ -90,7 +92,9 @@ export default function Recipes() {
                                 </div>
                             </div>
 
-                            <button className="btn btn-primary w-full">레시피 보기</button>
+                            <button className="btn btn-primary w-full" onClick={() => navigate("/RecipesShow")}>
+                                레시피 보기
+                            </button>
                         </div>
                     </div>
                 ))}
@@ -98,3 +102,4 @@ export default function Recipes() {
         </div>
     );
 }
+

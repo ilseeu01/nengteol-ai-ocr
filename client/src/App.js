@@ -10,6 +10,7 @@ import DHome from "./Pages/DHome";
 import DNew from "./Pages/DNew";
 import CartUpload from "./Pages/CartUpload";
 import DDiary from "./Pages/DDiary";
+import RecipesShow from "./Pages/RecipesShow";
 import "./App.css";
 export const DiaryStateContext = createContext([]);
 export const DiaryDispatchContext = createContext(() => {});
@@ -98,6 +99,15 @@ function App() {
                         </Layout>
                     }
                 />
+                <Route
+                    path="/RecipesShow"
+                    element={
+                        <Layout>
+                            <RecipesShow />
+                        </Layout>
+                    }
+                />
+
             </Routes>
         </Router>
     );
